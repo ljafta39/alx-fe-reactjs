@@ -1,30 +1,27 @@
-// src/components/RecommendationsList.jsx
-import React, { useEffect } from 'react';
-import useRecipeStore from './recipeStorela';
+import React from 'react';
+import { useRecipeStore } from './recipeStore';
 
-const RecommendationsList = () => {
-  const recommendations = useRecipeStore(state => state.recommendations);
-  const generateRecommendations = useRecipeStore(state => state.generateRecommendations);
-
-  useEffect(() => {
-    generateRecommendations();
-  }, []); // Generate recommendations when the component mounts
+const FavoritesList = () => {
+  const recipes = useRecipeStore(state => state.recipes);
+  const favorites = useRecipeStore(state => state.favorites.map(id =>
+    recipes.find(recipe => recipe.id === id)
+  ));
 
   return (
     <div>
-      <h2>Recommended for You</h2>
-      {recommendations.length > 0 ? (
-        recommendations.map(recipe => (
+      <h2>My Favorites</h2>
+      {favorites.length > 0 ? (
+        favorites.map(recipe => (
           <div key={recipe.id}>
             <h3>{recipe.title}</h3>
             <p>{recipe.description}</p>
           </div>
         ))
       ) : (
-        <p>No recommendations yet.</p>
+        <p>No favorites yet. Start adding some!</p>
       )}
     </div>
   );
 };
 
-export default RecommendationsList;
+export default FavoritesList;

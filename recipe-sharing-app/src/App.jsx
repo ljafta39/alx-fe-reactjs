@@ -5,6 +5,9 @@ import RecipeDetails from './components/RecipeDetails';
 import AddRecipeForm from './components/AddRecipeForm';
 import EditRecipeForm from './components/EditRecipeForm';
 import SearchBar from './components/SearchBar';
+import FavoritesList from './components/FavoritesList';
+import RecipeLoader from './components/RecipeLoader';
+import RecomendationsList from './components/RecommendationsList';
 
 const App = () => {
   return (
@@ -17,6 +20,7 @@ const App = () => {
             <button>Add Recipe</button>
           </Link>
         </nav>
+        <RecomendationsList />
         <Routes>
           <Route path="/" element={<RecipeList />} />
           <Route path="/recipe/:id" element={<RecipeDetails />} />

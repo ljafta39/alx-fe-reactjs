@@ -1,35 +1,24 @@
-// src/components/FavoritesList.jsx
-import React,{useState,useEffect} from 'react';
-import useRecipeStore  from './recipeStorela';
+import React from 'react';
+import { useRecipeStore } from './recipeStore';
+
 const FavoritesList = () => {
-  const { recipes, favorites: favoriteIds } = useRecipeStore(state => ({
-    recipes: state.recipes,
-    favorites: state.favorites,
-  }));
-  
-  const [favorites, setFavorites] = useState([]);
-
-  useEffect(() => {
-    // Map favorite IDs to actual recipe objects
-    const updatedFavorites = favoriteIds.map(id =>
-      recipes.find(recipe => recipe.id === id)
-    ).filter(recipe => recipe); // Ensure no undefined recipes
-
-    setFavorites(updatedFavorites);
-  }, [favoriteIds, recipes]); // Only run when favoriteIds or recipes change
+  const recipes = useRecipeStore(state => state.recipes);
+  const favorites = useRecipeStore(state => state.favorites.map(id =>
+    recipes.find(recipe => recipe.id === id)
+  ));
 
   return (
     <div>
       <h2>My Favorites</h2>
-      {favorites.length === 0 ? (
-        <p>No favorites yet.</p>
-      ) : (
+      {favorites.length > 0 ? (
         favorites.map(recipe => (
           <div key={recipe.id}>
             <h3>{recipe.title}</h3>
             <p>{recipe.description}</p>
           </div>
         ))
+      ) : (
+        <p>No favorites yet. Start adding some!</p>
       )}
     </div>
   );
