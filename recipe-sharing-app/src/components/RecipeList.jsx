@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom'; // <-- Import Link from react-router-dom
 import { useRecipeStore } from './recipeStore';
 
 const RecipeList = () => {
@@ -19,7 +20,7 @@ const RecipeList = () => {
           <div key={recipe.id}>
             <h3>{recipe.title}</h3>
             <p>{recipe.description}</p>
-            {/* Add a link to the recipe details page */}
+            {/* Link to Recipe Details page */}
             <Link to={`/recipe/${recipe.id}`}>View Details</Link>
           </div>
         ))
