@@ -1,6 +1,6 @@
 // src/components/FavoritesList.jsx
 import React,{useState,useEffect} from 'react';
-import useRecipeStore  from './recipeStore';
+import useRecipeStore  from './recipeStorela';
 const FavoritesList = () => {
   const { recipes, favorites: favoriteIds } = useRecipeStore(state => ({
     recipes: state.recipes,

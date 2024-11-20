@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import useRecipeStore  from './recipeStore';
+import useRecipeStore  from './recipeStorela';
 // src/components/RecipeList.jsx
 
 const RecipeList = () => {
