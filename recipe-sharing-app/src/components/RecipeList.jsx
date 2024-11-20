@@ -1,26 +1,20 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import useRecipeStore  from './recipeStorela';
-// src/components/RecipeList.jsx
+import { useRecipeStore } from './recipeStore';
 
 const RecipeList = () => {
-  const recipes = useRecipeStore(state => state.recipes);
-  const addFavorite = useRecipeStore(state => state.addFavorite);
-
-  const handleFavorite = (recipeId) => {
-    addFavorite(recipeId);
-  };
+  const recipes = useRecipeStore((state) => state.recipes);
 
   return (
     <div>
-      {recipes.map(recipe => (
-        <div key={recipe.id}>
-          <h3>{recipe.title}</h3>
-          <p>{recipe.description}</p>
-          <button onClick={() => handleFavorite(recipe.id)}>Add to Favorites</button>
-          <Link to={`/recipe/${recipe.id}`}>View Details</Link>
-        </div>
-      ))}
+      {recipes.length > 0 ? (
+        recipes.map((recipe) => (
+          <div key={recipe.id} style={{ marginBottom: '1rem' }}>
+            <h3>{recipe.title}</h3>
+            <p>{recipe.description}</p>
+          </div>
+        ))
+      ) : (
+        <p>No recipes available. Add some!</p>
+      )}
     </div>
   );
 };
