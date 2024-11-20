@@ -1,37 +1,25 @@
-import { useState } from 'react';
-import AddRecipeForm from './components/AddRecipeForm';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 import RecipeList from './components/RecipeList';
+import AddRecipeForm from './components/AddRecipeForm';
 import RecipeDetails from './components/RecipeDetails';
 
 const App = () => {
-  const [viewMode, setViewMode] = useState('list'); // 'list', 'details', or 'edit'
-  const [selectedRecipeId, setSelectedRecipeId] = useState(null);
-
-  const handleViewDetails = (id) => {
-    setSelectedRecipeId(id);
-    setViewMode('details');
-  };
-
-  const handleBackToList = () => {
-    setSelectedRecipeId(null);
-    setViewMode('list');
-  };
-
   return (
-    <div style={{ padding: '2rem' }}>
+    <div>
       <h1>Recipe Sharing App</h1>
-      {viewMode === 'list' && (
-        <>
-          <AddRecipeForm />
-          <RecipeList onViewDetails={handleViewDetails} />
-        </>
-      )}
-      {viewMode === 'details' && (
-        <RecipeDetails
-          recipeId={selectedRecipeId}
-          onBack={handleBackToList}
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <>
+              <AddRecipeForm />
+              <RecipeList />
+            </>
+          }
         />
-      )}
+        <Route path="/recipes/:recipeId" element={<RecipeDetails />} />
+      </Routes>
     </div>
   );
 };
