@@ -5,17 +5,37 @@ const RegistrationForm = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [errors, setErrors] = useState({}); // Object to manage errors for each field
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!username || !email || !password) {
-      setError("All fields are required.");
+    const newErrors = {};
+
+    // Validate username
+    if (!username) {
+      newErrors.username = "Username is required.";
+    }
+
+    // Validate email
+    if (!email) {
+      newErrors.email = "Email is required.";
+    }
+
+    // Validate password
+    if (!password) {
+      newErrors.password = "Password is required.";
+    }
+
+    // Update errors state
+    setErrors(newErrors);
+
+    // Stop submission if there are errors
+    if (Object.keys(newErrors).length > 0) {
       return;
     }
-    setError("");
+
+    // If no errors, simulate a successful submission
     console.log("Form submitted successfully:", { username, email, password });
-    // Simulate an API call
   };
 
   return (
@@ -25,29 +45,31 @@ const RegistrationForm = () => {
         <input
           type="text"
           name="username"
-          value={username} // Now this explicitly references "username"
-          onChange={(e) => setUsername(e.target.value)} // Update "username" state
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
+        {errors.username && <p style={{ color: "red" }}>{errors.username}</p>}
       </div>
       <div>
         <label>Email:</label>
         <input
           type="email"
           name="email"
-          value={email} // Explicitly referencing "email"
-          onChange={(e) => setEmail(e.target.value)} // Update "email" state
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
+        {errors.email && <p style={{ color: "red" }}>{errors.email}</p>}
       </div>
       <div>
         <label>Password:</label>
         <input
           type="password"
           name="password"
-          value={password} // Explicitly referencing "password"
-          onChange={(e) => setPassword(e.target.value)} // Update "password" state
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
+        {errors.password && <p style={{ color: "red" }}>{errors.password}</p>}
       </div>
-      {error && <p style={{ color: "red" }}>{error}</p>}
       <button type="submit">Register</button>
     </form>
   );
