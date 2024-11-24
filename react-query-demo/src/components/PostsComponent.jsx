@@ -10,15 +10,20 @@ const fetchPosts = async () => {
 };
 
 const PostsComponent = () => {
-  // Use React Query's useQuery hook with additional configurations
-  const { data, isLoading, isError, error } = useQuery(
-    ['posts'], 
+  const {
+    data,
+    isLoading,
+    isError,
+    error,
+    refetch,
+  } = useQuery(
+    ['posts'],
     fetchPosts,
     {
-      cacheTime: 5 * 60 * 1000, // 5 minutes (default is 5 minutes)
-      staleTime: 1 * 60 * 1000, // 1 minute before data is considered stale
-      refetchOnWindowFocus: true, // Refetch data when the window regains focus
-      keepPreviousData: true, // Keep previous data while fetching new data
+      cacheTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 1 * 60 * 1000, // 1 minute
+      refetchOnWindowFocus: true, // Refetch on focus
+      keepPreviousData: true, // Keep previous data while fetching new
     }
   );
 
@@ -33,6 +38,9 @@ const PostsComponent = () => {
   return (
     <div>
       <h1>Posts</h1>
+      <button onClick={() => refetch()} style={{ marginBottom: '1rem' }}>
+        Refetch Posts
+      </button>
       <ul>
         {data.map((post) => (
           <li key={post.id}>
