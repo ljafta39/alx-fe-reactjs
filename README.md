@@ -1,4 +1,3 @@
---this file issues
 # React Query Demo with User Registration
 
 This project demonstrates how to manage forms and fetch data efficiently in a React application. It includes:
