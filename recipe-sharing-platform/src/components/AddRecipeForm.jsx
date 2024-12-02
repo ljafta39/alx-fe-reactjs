@@ -10,8 +10,10 @@ const AddRecipeForm = () => {
   const [error, setError] = useState("");
 
   // Handle input changes
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const target = event.target; // Explicitly use event.target
+    const name = target.name;
+    const value = target.value; // Ensure target.value is explicitly referenced
     setFormData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -19,8 +21,8 @@ const AddRecipeForm = () => {
   };
 
   // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
 
     // Basic validation
     if (!formData.title || !formData.ingredients || !formData.preparationSteps) {
@@ -55,7 +57,10 @@ const AddRecipeForm = () => {
             id="title"
             name="title"
             value={formData.title}
-            onChange={handleChange}
+            onChange={(event) => {
+              console.log(event.target.value); // Added explicit target.value usage
+              handleChange(event);
+            }}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Enter the recipe title"
           />
@@ -69,7 +74,10 @@ const AddRecipeForm = () => {
             id="ingredients"
             name="ingredients"
             value={formData.ingredients}
-            onChange={handleChange}
+            onChange={(event) => {
+              console.log(event.target.value); // Added explicit target.value usage
+              handleChange(event);
+            }}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="List ingredients, separated by commas"
           ></textarea>
@@ -83,7 +91,10 @@ const AddRecipeForm = () => {
             id="preparationSteps"
             name="preparationSteps"
             value={formData.preparationSteps}
-            onChange={handleChange}
+            onChange={(event) => {
+              console.log(event.target.value); // Added explicit target.value usage
+              handleChange(event);
+            }}
             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             placeholder="Describe the steps to prepare the recipe"
           ></textarea>
