@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,Link } from 'react-router-dom';
 import recipesData from '../data.json';
 
 const HomePage = () => {
@@ -18,8 +18,17 @@ const HomePage = () => {
     Hard: 'bg-red-100 text-red-800'
   };
   return (
+    <div className="container mx-auto px-4 py-8">
+    <h1 className="text-4xl font-bold text-center mb-8 text-gray-800">
+      Delicious Recipes
+    </h1>
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {recipes.map((recipe) => (
+        <Link 
+        key={recipe.id} 
+        to={`/recipe/${recipe.id}`}
+        className="block"
+      >
         <div 
           key={recipe.id} 
           className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-xl hover:scale-105"
@@ -36,7 +45,9 @@ const HomePage = () => {
             </button>
           </div>
         </div>
+        </Link>
       ))}
+    </div>
     </div>
   );
 //   return (
