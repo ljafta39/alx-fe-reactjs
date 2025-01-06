@@ -1,13 +1,11 @@
 import axios from 'axios';
 
-const BASE_URL = import.meta.env.VITE_GITHUB_API_URL;
-
 export const fetchUserData = async (username) => {
+  const baseURL = 'https://api.github.com';
   try {
-    const response = await axios.get(`${BASE_URL}/users/${username}`);
+    const response = await axios.get(`${baseURL}/users/${username}`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching user data:", error);
-    throw error;
+    throw new Error('Error fetching user data');
   }
 };
